@@ -1,0 +1,16 @@
+dependencies:
+  override:
+    - ./circle.sh dependencies
+
+test:
+  override:
+    - ./circle.sh test
+
+machine:
+  pre:
+    - docker-client/circle.sh pre_machine
+  services:
+    - docker
+  environment:
+    DOCKER_HOST: tcp://127.0.0.1:2375
+    MAVEN_OPTS: -Xmx256m
