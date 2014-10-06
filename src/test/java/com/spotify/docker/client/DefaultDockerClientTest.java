@@ -181,15 +181,19 @@ public class DefaultDockerClientTest {
 
   @Test
   public void testRemoveImage() throws Exception {
-    sut.pull("busybox");
-    final String image = "busybox:buildroot-2013.08.1";
+    final String image = "alpinelinux/base:latest";
+    sut.pull(image);
     final List<RemovedImage> removedImages = sut.removeImage(image);
     assertThat(removedImages, contains(
         new RemovedImage(UNTAGGED, image),
         new RemovedImage(DELETED,
-                         "4b2909447dbef01f71ca476725c2dbb3af12de41aa2d7491d62c66678ede2294"),
+                         "c9c2bd2f80407b7601b39896b4608b21bc02b5cf77f48c4611cdc5daf129b34d"),
         new RemovedImage(DELETED,
-                         "ad8766e8635d2ae9ddd77d32b8f0fa091fb88fffed77b3a8a240bdcdc6f5aa05")));
+                         "493d3099c5b30f84a986d053df443d4da0b8df7b00aa567089ef0282cfe10301"),
+        new RemovedImage(DELETED,
+                         "b97f506a2e540356239b2f6c6a5c287834e9d3019ae9f136df75a3d088c0660c"),
+        new RemovedImage(DELETED,
+                         "41b6495d3bf2dd95af9a9baf155ddb04753df2326ab96a294933784c446300d2")));
 
     // Try to inspect deleted image and make sure ImageNotFoundException is thrown
     try {
